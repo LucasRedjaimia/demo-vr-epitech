@@ -6,7 +6,7 @@ public class InventoryManager : MonoBehaviour
     public int itemCount = 0;
     public int totalItems = 5;
 
-    public TextMeshPro counterText;
+    public TextMeshProUGUI counterText;
 
     void Start()
     {
