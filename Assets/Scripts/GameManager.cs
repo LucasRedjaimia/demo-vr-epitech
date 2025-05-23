@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI itemCountText;
     public GameObject victoryMessage;
     public GameObject defeatMessage;
-    public PostProcessVolume postProcessVolume;
+    public Volume postProcessingVolume;
 
     public GameObject victoryBox;
     public AudioClip victorySound;
@@ -55,9 +56,9 @@ public class GameManager : MonoBehaviour
         if (defeatMessage != null) defeatMessage.SetActive(false);
         if (victoryBox != null) victoryBox.SetActive(false);
 
-        if (postProcessVolume != null)
+        if (postProcessingVolume != null && postProcessingVolume.profile != null)
         {
-            postProcessVolume.profile.TryGetSettings(out vignette);
+            postProcessingVolume.profile.TryGet(out vignette);
         }
 
         StartCoroutine(DecreaseHealthOverTime());
