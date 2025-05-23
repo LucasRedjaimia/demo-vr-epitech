@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI itemCountText;
     public GameObject victoryMessage;
     public GameObject defeatMessage;
+    public PostProcessVolume postProcessVolume;
 
     public GameObject victoryBox;
     public AudioClip victorySound;
     public AudioClip defeatSound;
 
     public float gameTime = 600f;
-    public float healthDecreaseInterval = 5f;
+    public float healthDecreaseInterval = 1f;
     public int maxHealth = 100;
     public int totalItemsToCollect = 10;
 
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
     private bool isGameOver = false;
     private AudioSource audioSource;
     private InventoryManager inventory;
+    private Vignette vignette;
 
     void Start()
     {
@@ -51,6 +54,11 @@ public class GameManager : MonoBehaviour
         if (victoryMessage != null) victoryMessage.SetActive(false);
         if (defeatMessage != null) defeatMessage.SetActive(false);
         if (victoryBox != null) victoryBox.SetActive(false);
+
+        if (postProcessVolume != null)
+        {
+            postProcessVolume.profile.TryGetSettings(out vignette);
+        }
 
         StartCoroutine(DecreaseHealthOverTime());
     }
@@ -178,7 +186,14 @@ public class GameManager : MonoBehaviour
         {
             healthBar.value = (float)currentHealth / maxHealth;
         }
+
+        if (vignette != null)
+        {
+            float healthPercent = (float)currentHealth / maxHealth;
+            vignette.intensity.value = Mathf.Lerp(0.6f, 0f, healthPercent);
+        }
     }
+
 
     private void UpdateTimerUI()
     {
