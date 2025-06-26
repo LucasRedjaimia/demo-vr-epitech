@@ -6,12 +6,17 @@ public class Bandage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        GameManager gameManager = FindObjectOfType<GameManager>();
+        InventoryManager inventory = other.GetComponent<InventoryManager>();
 
-        if (gameManager != null)
+        if (inventory != null)
         {
-            gameManager.ApplyBandage(healAmount);
-            Destroy(gameObject);
+            GameManager gameManager = FindObjectOfType<GameManager>();
+
+            if (gameManager != null)
+            {
+                gameManager.ApplyBandage(healAmount);
+                Destroy(gameObject);
+            }
         }
     }
 }
