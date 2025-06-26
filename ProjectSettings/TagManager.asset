@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Home
   - CompletedTag
+  - Batterie
   layers:
   - Default
   - TransparentFX
