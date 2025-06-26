@@ -1,50 +1,83 @@
-![Starter Samples Banner](./Documentation/Medias/banner.png "StarterSamples")
+# Game Design Document
 
-# Unity Starter Samples
-The starter samples you will find here are to help you navigate and understand our APIs with more flexibility. We encourage you to look into them, test them out and inspire yourself on how the APIs can be used in your own project.
+## 1. Vue d'Ensemble du Projet
 
-The [Oculus License](./LICENSE) applies to the samples.
+- **Genre** : Horreur psychologique, Survie, Exploration (en Réalité Virtuelle)
+- **Plateformes Cibles** : Casques VR (PC VR, Standalone VR)
+- **Public Cible** : Joueurs de 16 ans et plus, amateurs de jeux d'horreur psychologique et d’expériences immersives en VR
+- **Concept Clé** :  
+  Plonger le joueur dans une forêt nocturne et oppressante où l’absence de menace visible est remplacée par une ambiance terrifiante et la gestion de ressources limitées.  
+  L’horreur est suggérée par l’environnement, le son et l’isolement. Inspiré du gameplay atmosphérique de *Slender Man* et de la gestion d’inventaire pratique de *Phasmophobia*.
 
-This project was built using the [Unity engine](https://unity.com/download).
+---
 
-## Getting The Code
-Clone this repo using the "Code" button above, or this command:
-```sh
-git clone https://github.com/oculus-samples/Unity-StarterSamples.git
-```
+## 2. Gameplay
 
-## How to run the project in Unity
-1. Make sure you're using  *Unity 2022.3.15f1* or newer.
-2. In the Project window, navigate to [Assets/StarterSamples/Usage](Assets/StarterSamples/Usage).
-3. Click on individual scenes.
-4. Click **Play** button to explore scene functionality in Unity.
+### 2.1 Objectif Principal du Joueur
 
-## How to test on device
-1. Navigate to **Meta** > **Samples** > **Build Starter Scene** to build an APK that will launch the **Starter Scene**.
-    <div style="margin-left: 4.5em;"><img src="./Documentation/Medias/buildsamples.png" width="300"></div>
-    * In this apk you will be able to cycle through the different sample scenes to test them out on device.
-2. Navigate to the `Unity-StarterSamples` folder and copy the `StartScene.apk` to your device using [Meta Quest Developer Hub](https://developer.oculus.com/documentation/unity/ts-odh-deploy-build/).
+Explorer une vaste forêt plongée dans l’obscurité et le brouillard pour trouver un certain nombre de **pages** dispersées.  
+La collecte de toutes les pages mène à la **conclusion du jeu** (évasion ou autre objectif final).
 
-## SDK Dependencies
-All Meta SDKs can be found in the [Unity Asset Store](https://assetstore.unity.com/publishers/25353).
-This project depends on SDKs defined in the [Packages/manifest.json](./Packages/manifest.json):
-* [Meta XR Core SDK](https://assetstore.unity.com/packages/tools/integration/meta-xr-core-sdk-269169)
+### 2.2 Mécaniques de Jeu
 
-## Integrate Samples to your own project
-1. Make sure your project uses the same SDK version
-2. Move the samples to your project
-   <details>
-      <summary><b>Copy Samples directory</b></summary>
+- **Exploration**  
+  Navigation libre dans un environnement forestier dense et non linéaire. Des points d’intérêt (cabanes, ruines…) guident ou désorientent la recherche des pages.
 
-      + Copy [Assets/StarterSamples](./Assets/StarterSamples) directory to your own project
-    </details>
-    <details>
-      <summary><b>Create UnityPackage and Import it</b></summary>
+- **Mouvement**  
+  Locomotion fluide (téléportation ou déplacement continu), avec options pour limiter le mal des transports.
 
-      1. Open Unity-StarterSamples project in Unity
-      2. Right-click on [Assets/StarterSamples](./Assets/StarterSamples) and select <i>Export Package...</i>
-      3. Save package in an easy location to retrieve
-      4. Open your own project (where you want the samples to be added)
-      5. Click on <i>Assets->Import Package->Custom Package...</i> from the menu bar
-      6. Find the package we saved in step 3 and click <i>Open</i>
-    </details>
+- **Gestion de l'Inventaire** *(inspiration Phasmophobia)*  
+  - Emplacements physiques sur le corps (poche, ceinture)
+  - Objets :
+    - **Lampe torche** : source principale de lumière, se décharge avec le temps.
+    - **Piles** : nécessaires pour recharger la lampe.
+    - **Bandages** : pour soigner le joueur (système de santé avec saignement).
+  - Interactions physiques en VR (saisir, insérer des piles, appliquer un bandage).
+
+- **Absence de Combat**  
+  Aucune arme ni combat. La survie repose sur la fuite, la dissimulation, et la gestion des ressources.
+
+---
+
+## 3. Environnement et Ambiance
+
+### 3.1 Cadre
+
+- **Lieu** : Forêt dense et labyrinthique
+- **Heure** : Nuit noire avec lune visible
+- **Météo** : Brouillard épais et omniprésent
+
+### 3.2 Direction Artistique
+
+- **Style visuel** : Réaliste avec touche stylisée pour accentuer l’horreur.  
+  Palette : tons sombres, verts profonds, gris + lumière de la torche.
+- **Éclairage** : Principalement la lampe du joueur, quelques lumières statiques dans des points d’intérêt.
+- **Points d’intérêt** : Cabanes en ruine, hangars, ruines anciennes...
+
+### 3.3 Design Sonore (crucial)
+
+- **Bruitages d’ambiance** : Vent, branches, feuilles, chouettes, insectes, pas...
+- **Sons atmosphériques** : Drones, murmures, bruits ambigus pour suggérer une présence invisible.
+- **Audio spatialisée** : Sons directionnels pour immersion et désorientation.
+
+### 3.4 Thèmes de l’Horreur
+
+- Peur de l’inconnu
+- Isolement
+- Impossibilité de se défendre
+- Gestion du stress par les ressources limitées
+
+---
+
+## 4. Interfaces Utilisateur (UI)
+
+- **Diegetic UI** : Interface intégrée dans le monde. Ex : niveau de batterie visible sur la lampe.
+- **Inventaire** : Physique (objets visibles et interactifs sur le corps).
+- **Indicateurs santé** : Subtils et immersifs (vision floue, battements de cœur, teinte rouge).
+
+---
+
+## 5. Progression
+
+- **Objectif principal** : Collecter X pages
+- **Exploration** : Non-linéaire, chaque joueur peut trouver les pages dans l’ordre qu’il souhaite.
